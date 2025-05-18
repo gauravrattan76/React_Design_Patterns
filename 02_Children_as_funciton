@@ -1,0 +1,62 @@
+Child.jsx -
+
+
+import React, { useState } from 'react'
+
+const Child = ({ children }) => {
+    const [pos, setPos] = useState({
+        x: 0,
+        y: 0
+    })
+
+    const handleMouseMove = (e) => {
+        setPos(prev => ({
+            ...prev,
+            x: e.clientX,
+            y: e.clientY
+        }))
+    }
+
+    return (
+        <div style={{ height: '100vh' }} onMouseMove={handleMouseMove}>
+            Child component
+            <br />
+            {
+                children(pos)
+            }
+        </div>
+    )
+}
+
+
+export default Child;
+
+
+______________________________________
+
+
+parent.jsx-
+
+import React from 'react'
+import Child from './Child';
+
+const Parent = () => {
+    return (
+        <>Hello world!!
+            <Child>
+                {
+                    (pos) => (
+                        <>
+                            x is {pos.x}
+                            <br />
+                            y is {pos.y}
+                        </>
+                    )
+                }
+            </Child>
+        </>
+    )
+}
+
+
+export default Parent;
