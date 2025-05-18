@@ -1,0 +1,100 @@
+Render props pttern-
+_______________________________
+
+
+The render prop pattern in React is a technique for sharing code between components using a prop whose value is a function
+
+This approach allows a component to delegate its rendering logic to a function provided via props, enhancing flexibility and reusability
+
+_________________________
+
+
+Advantage -
+
+In this example, MouseTracker handles the logic of tracking the mouse position, and delegates the rendering to the function provided via the render prop. 
+
+Code for child-
+
+Do what ever you want to do and the at last send the value like {render(position)}
+
+
+
+_________
+
+
+In parent -
+
+
+<Child render={either call a function or with call back resolve here it self} />
+
+______________________
+
+
+Child.jsx-
+
+import React, { useState } from 'react'
+
+const Child  =({render}) =>{
+    const [position, setPosition] = useState({
+        x:0,
+        y:0
+    })
+
+    const handleMouseMove = (e) =>{
+        setPosition(prev => ({
+            ...prev,
+            x: e.clientX,
+            y: e. clientY
+        }))
+    }
+
+    return(
+        <div style={{height: '100vh'}} onMouseMove={handleMouseMove}>
+            {
+                render(position)
+            }
+        {/* This is the child component x: {position.x}
+        <br />
+        This is the child component x: {position.y}
+        <br /> */}
+        </div>
+    )
+}
+
+
+export default Child;
+________________
+
+Parent.jsx-
+
+import React from 'react'
+import Child from './Child';
+
+const Parent  =() =>{
+// const returnJsx = (p) =>(
+//     <>x postion is {p.x}
+//     <br />
+//     y is {p.y}
+//     </>
+// )
+
+// const returnJsx = 
+
+    return(
+        <>
+        This is the child component
+        <br />
+// can have here or. call the returnJsx funcxtion too
+        <Child render={(p) =>(
+    <>x postion is {p.x}
+    <br />
+    y is {p.y}
+    </>
+)} />
+        </>
+    )
+}
+
+
+export default Parent;
+___________________________________________________
