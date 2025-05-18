@@ -1,0 +1,89 @@
+HOC Pattern-
+_________________________
+
+
+
+In React, a Higher-Order Component (HOC) is a function that takes a component and returns a new component with enhanced behavior. This pattern is useful for reusing component logic across multiple components.Medium+5Medium+5React+5React+1DeadSimpleChat+1
+
+
+_________________________
+
+
+
+Child -
+
+import React from 'react';
+
+
+const Test = () => <>this is the test component</>
+
+
+// main hockey component
+const withAuth = (WrappedComponent) => {
+  return (props) => {
+    const isAuthenticated = true;
+
+    if (!isAuthenticated) {
+      return <Test />;
+    }
+
+    return <WrappedComponent {...props} />;
+  };
+};
+
+
+export default withAuth;
+
+
+____________
+
+import withAuth from './Child'
+
+const Dashboard = ({text, age}) => {
+    return <h1>Welcome to your dashboard! {text} {age}</h1>;
+  };
+
+
+   const ProtectedDashboard = withAuth(Dashboard);
+
+
+   export default ProtectedDashboard
+
+
+
+_______________________-
+
+
+App.jsx-
+
+import React from 'react';
+import './App.css'
+import Hook1 from './hooks/Hook1';
+import Hooks2 from './hooks/Hooks2';
+import FetchingApi from './hooks/FetchingApi';
+import ContextHook from './hooks/ContextHook';
+import HookRef from './hooks/HookRef';
+import Comp1 from './hooks/Comp1';
+import MyReducer from './hooks/MyReducer';
+import InfiniteScrollWithPagination from './hooks/Inter';
+import Parent from './pattern/Parent';
+import ProtectedDashboard from './pattern/Parent';
+
+function App() {
+  return (
+    <>
+     This is the test data
+     <br />
+
+  <ProtectedDashboard text={'hello'} age='24' />
+    </>
+  )
+}
+
+export default App
+
+
+
+
+
+
